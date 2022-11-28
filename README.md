@@ -3,7 +3,7 @@
 ## Setup
 
 1. Download the repo
-`git clone https://github.com/keiohtani/google_photos_album_transfer.git`
+`git clone https://github.com/fraserlai/google_photos_album_transfer.git`
 
 2. Activate Photos Library API in Google Cloud Platform
 
