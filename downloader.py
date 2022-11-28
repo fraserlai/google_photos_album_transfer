@@ -6,6 +6,7 @@ import re
 from queue import Queue
 
 ALBUM_PAGE_SIZE = 50
+RETRY = 10
 IMAGE_PATH = 'images'
 CLIENT_SECRETS_FILE = '.google_photos_client_secrets.json'
 TOKEN_FILE = '.downloader_google_photos_token.json'
@@ -22,7 +23,12 @@ def download_images(images_queues, title, payload=payload, dir_path=IMAGE_PATH):
 
     while True:
 
-        media_list = service.mediaItems().search(body=payload).execute()
+        for _ in range(RETRY):
+            try:
+                media_list = service.mediaItems().search(body=payload).execute()
+                break
+            except:
+                print(payload)
 
         if 'mediaItems' not in media_list:  # when no items are found
             break
