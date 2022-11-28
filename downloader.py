@@ -40,9 +40,14 @@ def download_images(images_queues, title, payload=payload, dir_path=IMAGE_PATH):
             try:
                 # w16383-h16383 will ensure to download an image at the maximum size.
                 file_name = mediaItem['filename']
+                file_type = mediaItem['mimeType']
                 file_path = os.path.join(dir_path, file_name)
-                urllib.request.urlretrieve(
-                    image_url + '=w16383-h16383', file_path)
+                if("image" in file_type):
+                    photo_width = mediaItem['mediaMetadata']['width']
+                    photo_height = mediaItem['mediaMetadata']['height']
+                    urllib.request.urlretrieve(image_url + '=d', file_path)
+                else:
+                    urllib.request.urlretrieve(image_url + '=dv', file_path)
                 images_queue.put(file_name)
             except urllib.request.HTTPError as err:
                 print(err.code, 'error found.')
