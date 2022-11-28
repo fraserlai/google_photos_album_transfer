@@ -14,8 +14,9 @@ service = get_authenticated_service(CLIENT_SECRETS_FILE, TOKEN_FILE)
 
 
 def upload_images(images_queues):
-    sleep(300)
     print('Start uploading')
+    while images_queues.empty():
+        pass
     while not images_queues.empty():
         album_object = images_queues.get()
         title = album_object['title']
